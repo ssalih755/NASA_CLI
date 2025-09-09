@@ -21,25 +21,29 @@ public class Main {
         System.out.println("Enter end date (YYYY-MM-DD): ");
         String eDate = userInput.nextLine();
 
+       //initialize date variables to be passed to the service
+        LocalDate startDate = null;
+        LocalDate endDate = null;
+
         //validate the dates
         try {
-            LocalDate startDate = LocalDate.parse(sDate);
-            LocalDate endDate = LocalDate.parse(eDate);
+            startDate = LocalDate.parse(sDate);
 
-            if (endDate.isBefore(startDate)) {
-                System.out.println("\033[31mEnd date must be on or after start date.\033[0m");
-                return;
+            if (eDate != null && !eDate.trim().isEmpty()) {
+                endDate = LocalDate.parse(eDate);
+                if (endDate.isBefore(startDate)) {
+                    System.out.println("\033[31mEnd date must be on or after start date.\033[0m");
+                    return;
+                }
             }
         } catch (DateTimeParseException ex) {
             System.out.println("\033[31mInvalid date format. Please use YYYY-MM-DD.\033[0m");
             return;
         }
 
-
         NASAService service = new NASAService();
 
-
-        NeoFeedResponse response = service.getAllNeos(sDate, eDate);
+        NeoFeedResponse response = service.getAllNeos(startDate.toString(), endDate==null?null:endDate.toString());
 
         //for each loop -- we are looping through the keys
         for (String key: response.getNearEarthObjects().keySet()){
@@ -75,5 +79,9 @@ public class Main {
         }
 
 
+
+
     }
 }
+
+

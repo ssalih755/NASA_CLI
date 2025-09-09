@@ -13,16 +13,17 @@ public class NASAService {
 
     // Request to get all NEOs for a specific group of days
     public NeoFeedResponse getAllNeos(String startDate, String endDate){
-        String url = API_URL + "start_date=" + startDate +
-                "&end_date=" + endDate +
-                "&api_key=" + API_KEY;
+        String url = "";
+        if (endDate == null || endDate.trim().isEmpty()){
+            url = API_URL + "start_date=" + startDate +
+                    "&api_key=" + API_KEY;
+        } else {
+            url = API_URL + "start_date=" + startDate +
+                    "&end_date=" + endDate +
+                    "&api_key=" + API_KEY;
+        }
 
-//        String response = restTemplate.getForObject(url, String.class); //.toString();
-//        System.out.println(response);
-
-        NeoFeedResponse response = restTemplate.getForObject(url, NeoFeedResponse.class);
-
-        return response;
+        return restTemplate.getForObject(url, NeoFeedResponse.class);
 
     }
 }
