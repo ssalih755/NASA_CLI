@@ -18,7 +18,7 @@ A simple command-line interface (CLI) tool that interacts with the [NASA Open AP
 ## 📦 Installation
 1. Clone this repository:
    ```bash
-   git clone https://github.com/your-username/nasa-cli.git
+   git clone https://github.com/ssalih755/NASA_CLI.git
    cd nasa-cli
 ---
 
